@@ -21,7 +21,7 @@ temp = nil
 temp_pin = nil
 package.loaded["ds18b20"]=nil
 if t~=85 then
-	val1={t="myHouse/roof/temp",v=t,q=0,r=0}
+	val1={t="/temp",v=t,q=0,r=0}
 	return {val1}
 else
 	return {}

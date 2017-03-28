@@ -38,7 +38,7 @@ end
 
 function send_data(m,data)
 	for k,v in pairs(data) do
-		m:publish(my_name..""..v.t,v.v,v.q,v.r)	
+		m:publish(my_name..""..v.t,v.v,v.q,v.r)
 	end	
 	tmr.alarm(secrets.post_publish_tmr, 2000, tmr.ALARM_SINGLE, function ()
 		sleep()
@@ -47,9 +47,10 @@ end
 
 data = {}
 for name,size in pairs(file.list()) do
-	if string.sub(name,1,4)=="run_" then
+	if string.sub(name,1,4)=="run_" and (string.sub(name,string.len(name)-2,string.len(name))=="lua" or string.sub(name,string.len(name)-1,string.len(name))=="lc") then
+		print("Doing file: "..name)
 		for i,val in pairs(dofile(name)) do
-			data[#data+1]=val
+			data[i]=val
 		end
 	end
 end

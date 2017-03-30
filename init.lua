@@ -30,6 +30,10 @@ tmr.alarm(secrets.connect_retry_tmr,500, tmr.ALARM_AUTO, function()
 	if wifi.sta.getip()~=nil then
 		tmr.stop(secrets.connect_retry_tmr)
 		tmr.stop(secrets.deadman_tmr)
-		dofile("main.lua")
+		if file.exists("main.lc") then
+			dofile("main.lc")
+		else
+			dofile("main.lua")
+		end
 	end
 end)

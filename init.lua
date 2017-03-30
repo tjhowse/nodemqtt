@@ -1,6 +1,6 @@
 secrets = dofile("secrets.lua")
 
-tmr.alarm(secrets.deadman_tmr, 5000, tmr.ALARM_SINGLE, function ()
+tmr.alarm(secrets.deadman_tmr, 10000, tmr.ALARM_SINGLE, function ()
 	node.dsleep(secrets.sleep_duration)
 end)
 

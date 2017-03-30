@@ -46,11 +46,13 @@ function send_data(m,data)
 end
 
 data = {}
+j=1
 for name,size in pairs(file.list()) do
 	if string.sub(name,1,4)=="run_" and (string.sub(name,string.len(name)-2,string.len(name))=="lua" or string.sub(name,string.len(name)-1,string.len(name))=="lc") then
 		print("Doing file: "..name)
 		for i,val in pairs(dofile(name)) do
-			data[i]=val
+			data[j]=val
+			j = j+1
 		end
 	end
 end

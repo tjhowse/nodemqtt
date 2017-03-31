@@ -3,22 +3,27 @@
 -- end)
 -- looping = true
 -- bme_init = bme280.init(1, 2,nil,nil,nil,1)
-bme_init = bme280.init(5, 6)
+bme_init = bme280.init(1, 2)
 if bme_init == 2 then
 	-- print("Woo")
 	-- bme280.startreadout(0, function() 
-		-- print("Reading out")
-		P, T = bme280.baro()
-		H, T = bme280.humi()
+	-- print("Reading out")
+	P, T = bme280.baro()
+	H, T = bme280.humi()
+	if T ~= nil then
 		val1={t="/temp",v=T/100,q=0,r=0}
 		val2={t="/baro",v=P/1000,q=0,r=0}
 		val3={t="/humidity",v=H/1000,q=0,r=0}
 		-- print("Success")
 		-- looping=false
 		return {val1,val2,val3}
+	else
+		print("Value fail: "..bme_init)
+		return {}
+	end
 	-- end)
 else
-	print("Fail: "..bme_init)
+	print("Init fail: "..bme_init)
 	return {}
 end
 

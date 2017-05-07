@@ -1,5 +1,6 @@
 secrets = dofile("secrets.lua")
 my_name = secrets.mqtt_tld.."/desk"
+print("Start of main: "..node.heap())
 
 tmr.alarm(secrets.deadman_tmr, 25000, tmr.ALARM_SINGLE, function ()
 	node.dsleep(secrets.sleep_duration)
@@ -46,7 +47,6 @@ data = {}
 j=1
 for name,size in pairs(file.list()) do
 	if string.sub(name,1,4)=="run_" and (string.sub(name,string.len(name)-2,string.len(name))=="lua" or string.sub(name,string.len(name)-1,string.len(name))=="lc") then
-		print("Doing file: "..name)
 		for i,val in pairs(dofile(name)) do
 			data[j]=val
 			j = j+1
@@ -57,7 +57,6 @@ end
 net.cert.verify(true)
 m = mqtt.Client(node.chipid(), 10, secrets.mqtt_user, secrets.mqtt_pwd)
 m:on("connect", function(client)
-	print("Connected")
 	m:subscribe(my_name.."/update",0)
 	m:subscribe(my_name.."/delete",0)
 	tmr.alarm(secrets.post_publish_tmr, 2000, tmr.ALARM_SINGLE, function ()

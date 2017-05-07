@@ -63,11 +63,13 @@ m:on("connect", function(client)
 	end)
 end)
 m:on("message", function(client, topic, message)
-	if topic == my_name.."/update" and message ~= "" and message ~= nil then
+	if message == "" or message == nil then
+		do return
+	end
+	if topic == my_name.."/update" then
 		tmr.stop(secrets.post_publish_tmr)
-		update_info = cjson.decode(message)
-		do_update(update_info)
-	elseif topic == my_name.."/delete" and message ~= "" and message ~= nil then
+		do_update(cjson.decode(message))
+	elseif topic == my_name.."/delete" then
 		print("deleting "..message)
 		file.remove(message)
 		m:publish(my_name.."/delete","",0,1)

@@ -1,11 +1,8 @@
 secrets = dofile("secrets.lua")
 my_name = secrets.mqtt_tld.."/desk"
-function sleep()
-	node.dsleep(secrets.sleep_duration)
-end
 
 tmr.alarm(secrets.deadman_tmr, 25000, tmr.ALARM_SINGLE, function ()
-	sleep()
+	node.dsleep(secrets.sleep_duration)
 end)
 
 function do_update(update_info)
@@ -41,7 +38,7 @@ function send_data(m,data)
 		m:publish(my_name..""..v.t,v.v,v.q,v.r)
 	end	
 	tmr.alarm(secrets.post_publish_tmr, 2000, tmr.ALARM_SINGLE, function ()
-		sleep()
+		node.dsleep(secrets.sleep_duration)
 	end)
 end
 

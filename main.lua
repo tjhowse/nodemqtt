@@ -58,6 +58,7 @@ m = mqtt.Client(node.chipid(), 10, secrets.mqtt_user, secrets.mqtt_pwd)
 m:on("connect", function(client)
 	m:subscribe(my_name.."/update",0)
 	m:subscribe(my_name.."/delete",0)
+	m:subscribe(my_name.."/run",0)
 	tmr.alarm(secrets.post_publish_tmr, 2000, tmr.ALARM_SINGLE, function ()
 		send_data(m,data)
 	end)
@@ -73,6 +74,10 @@ m:on("message", function(client, topic, message)
 		print("deleting "..message)
 		file.remove(message)
 		m:publish(topic,"",0,1)
+	else
+		topic == my_name.."/run" then
+		dofile(message)
+		m:publish(topic,"",0,1)		
 	end
 end)
 m:connect(secrets.mqtt_hostname, secrets.mqtt_port, 1,0,nil,function(client, reason)

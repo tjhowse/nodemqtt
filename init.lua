@@ -1,5 +1,4 @@
-secrets = dofile("secrets.lua")
-
+secrets = dofile("secrets.lc")
 tmr.alarm(secrets.deadman_tmr, 10000, tmr.ALARM_SINGLE, function ()
 	node.dsleep(secrets.sleep_duration)
 end)
@@ -19,6 +18,8 @@ for name,size in pairs(file.list()) do
 	end
 	len=nil
 end
+name=nill
+size=nill
 badboot=nil
 raw=nil
 detail=nil

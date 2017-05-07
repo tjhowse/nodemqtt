@@ -72,7 +72,7 @@ m:on("message", function(client, topic, message)
 	elseif topic == my_name.."/delete" then
 		print("deleting "..message)
 		file.remove(message)
-		m:publish(my_name.."/delete","",0,1)
+		m:publish(topic,"",0,1)
 	end
 end)
 m:connect(secrets.mqtt_hostname, secrets.mqtt_port, 1,0,nil,function(client, reason)

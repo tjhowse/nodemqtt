@@ -1,4 +1,3 @@
-secrets = dofile("secrets.lua")
 my_name = secrets.mqtt_tld.."/desk"
 print("Start of main: "..node.heap())
 

@@ -74,10 +74,9 @@ m:on("message", function(client, topic, message)
 		print("deleting "..message)
 		file.remove(message)
 		m:publish(topic,"",0,1)
-	else
-		topic == my_name.."/run" then
+	elseif topic == my_name.."/run" then
 		dofile(message)
-		m:publish(topic,"",0,1)		
+		m:publish(topic,"",0,1)
 	end
 end)
 m:connect(secrets.mqtt_hostname, secrets.mqtt_port, 1,0,nil,function(client, reason)

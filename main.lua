@@ -65,7 +65,7 @@ m:on("connect", function(client)
 end)
 m:on("message", function(client, topic, message)
 	if message == "" or message == nil then
-		do return
+		do return end
 	end
 	if topic == my_name.."/update" then
 		tmr.stop(secrets.post_publish_tmr)
